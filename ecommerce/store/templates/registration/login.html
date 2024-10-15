@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Fondo gris claro */
+        }
+        .container {
+            max-width: 400px; /* Limitar el ancho del contenedor */
+            margin-top: 50px; /* Espaciado en la parte superior */
+        }
+        .form-control {
+            height: 38px; /* Altura personalizada para los campos */
+            padding: 10px; /* Espaciado interno */
+            font-size: 16px; /* Tamaño de fuente */
+        }
+        button {
+            width: 100%; /* Botón ocupa todo el ancho */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">Iniciar Sesión</h2>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Nombre de usuario:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        </form>
+        <p class="text-center">¿No tienes una cuenta? <a href="{% url 'register' %}">Regístrate aquí</a></p>
+    </div>
+</body>
+</html>
